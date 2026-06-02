@@ -2,10 +2,16 @@ import 'dotenv/config';
 import { createApp } from './app.js';
 
 // ─── Repository layer (stub) ───────────────────────────────
-import { createStubUserRepository } from './repositories/stub/user.repository.stub.js';
-import { createStubCommentRepository } from './repositories/stub/comment.repository.stub.js';
-import { createStubPostRepository } from './repositories/stub/post.repository.stub.js';
-import { createStubTagRepository } from './repositories/stub/tag.repository.stub.js';
+// import { createStubUserRepository } from './repositories/stub/user.repository.stub.js';
+// import { createStubCommentRepository } from './repositories/stub/comment.repository.stub.js';
+// import { createStubPostRepository } from './repositories/stub/post.repository.stub.js';
+// import { createStubTagRepository } from './repositories/stub/tag.repository.stub.js';
+
+// ─── Repository layer (stub) ───────────────────────────────
+import { createPrismaUserRepository } from './repositories/prisma/user.repository.prisma.js';
+import { createPrismaCommentRepository } from './repositories/prisma/comment.repository.prisma.js';
+import { createPrismaPostRepository } from './repositories/prisma/post.repository.prisma.js';
+import { createPrismaTagRepository } from './repositories/prisma/tag.repository.prisma.js';
 
 // ─── Service layer ─────────────────────────────────────────
 import { createUserService } from './services/user.service.js';
@@ -21,10 +27,10 @@ import { createTagController } from './controllers/tag.controller.js';
 
 // ─── Composition Root ──────────────────────────────────────
 // Repositories (stub — in-memory)
-const userRepo = createStubUserRepository();
-const commentRepo = createStubCommentRepository(userRepo);
-const postRepo = createStubPostRepository(userRepo, commentRepo, null);
-const tagRepo = createStubTagRepository(postRepo);
+const userRepo = createPrismaUserRepository();
+const commentRepo = createPrismaCommentRepository(userRepo);
+const postRepo = createPrismaPostRepository(userRepo, commentRepo, null);
+const tagRepo = createPrismaTagRepository(postRepo);
 
 // Services
 const userService = createUserService({ userRepo });
